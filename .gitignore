@@ -1,0 +1,3 @@
+slack-agent-bridge
+.env
+*.log
