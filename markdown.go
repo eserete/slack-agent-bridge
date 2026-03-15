@@ -6,32 +6,24 @@ import (
 	"strings"
 )
 
+// Pre-compiled regexes for markdown-to-Slack conversion.
+var (
+	boldRegex       = regexp.MustCompile(`\*\*(.+?)\*\*`)
+	boldAltRegex    = regexp.MustCompile(`__(.+?)__`)
+	headerRegex     = regexp.MustCompile(`(?m)^#{1,6}\s+(.+)$`)
+	hrRegex         = regexp.MustCompile(`(?m)^[-*_]{3,}$`)
+	linkRegex       = regexp.MustCompile(`\[([^\]]+)\]\(([^)]+)\)`)
+	multiBlankRegex = regexp.MustCompile(`\n{3,}`)
+)
+
 // markdownToSlack converts Markdown formatting to Slack mrkdwn syntax.
 func markdownToSlack(text string) string {
-	// Convert **bold** to *bold* (Slack uses single asterisk for bold)
-	boldRegex := regexp.MustCompile(`\*\*(.+?)\*\*`)
 	text = boldRegex.ReplaceAllString(text, "*$1*")
-
-	// Convert __bold__ to *bold*
-	boldAltRegex := regexp.MustCompile(`__(.+?)__`)
 	text = boldAltRegex.ReplaceAllString(text, "*$1*")
-
-	// Convert ### Header, ## Header, # Header to *Header*
-	headerRegex := regexp.MustCompile(`(?m)^#{1,6}\s+(.+)$`)
 	text = headerRegex.ReplaceAllString(text, "*$1*")
-
-	// Convert horizontal rules to visual separator
-	hrRegex := regexp.MustCompile(`(?m)^[-*_]{3,}$`)
 	text = hrRegex.ReplaceAllString(text, "───────────────────")
-
-	// Convert [text](url) to <url|text>
-	linkRegex := regexp.MustCompile(`\[([^\]]+)\]\(([^)]+)\)`)
 	text = linkRegex.ReplaceAllString(text, "<$2|$1>")
-
-	// Collapse 3+ consecutive blank lines into 2
-	multiBlankRegex := regexp.MustCompile(`\n{3,}`)
 	text = multiBlankRegex.ReplaceAllString(text, "\n\n")
-
 	return strings.TrimSpace(text)
 }
 

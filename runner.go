@@ -138,12 +138,19 @@ func (s *OpenCodeServer) start() error {
 	)
 	s.cmd.Dir = s.cfg.AgentDir
 
-	// Build PATH with optional EXTRA_PATH prepended
+	// Build PATH with optional EXTRA_PATH prepended, replacing any existing PATH entry
 	currentPath := os.Getenv("PATH")
 	if s.cfg.ExtraPath != "" {
 		currentPath = s.cfg.ExtraPath + ":" + currentPath
 	}
-	s.cmd.Env = append(os.Environ(), "PATH="+currentPath)
+	env := os.Environ()
+	filtered := make([]string, 0, len(env))
+	for _, e := range env {
+		if !strings.HasPrefix(e, "PATH=") {
+			filtered = append(filtered, e)
+		}
+	}
+	s.cmd.Env = append(filtered, "PATH="+currentPath)
 
 	s.cmd.Stdout = nil
 	s.cmd.Stderr = nil
@@ -649,7 +656,8 @@ func (s *OpenCodeServer) processSSEEvents(
 	sessionID string, start time.Time, onStream StreamCallback,
 	accumulated *string, assistantMsgID *string, firstTextAt *time.Time, toolCallCount *int,
 ) (RunResult, sseAction) {
-	defer sseResp.Body.Close()
+	// Note: sseResp.Body is closed by the goroutine on ctx.Done() (set up by caller).
+	// Do NOT defer sseResp.Body.Close() here to avoid double-close and goroutine leaks.
 
 	for scanner.Scan() {
 		line := scanner.Text()
