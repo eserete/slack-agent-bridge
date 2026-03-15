@@ -1,0 +1,8 @@
+{
+  // Minimal opencode config for use with slack-agent-bridge
+  "provider": {
+    "github-copilot": {}
+  }
+  // Agent is defined in ~/.config/opencode/agents/<agent-name>.md
+  // AGENT_NAME env var must match the agent file name (without .md)
+}
