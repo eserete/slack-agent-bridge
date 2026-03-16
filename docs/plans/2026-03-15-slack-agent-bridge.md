@@ -10,7 +10,7 @@
 
 **Spec:** `docs/specs/2026-03-15-slack-agent-bridge-design.md`
 
-**Source (extract from):** `/Users/eduardoserete/agents/chief-of-staff/listener/` (main.go, handler.go, runner.go)
+**Source (extract from):** `/path/to/source/listener/` (main.go, handler.go, runner.go)
 
 ---
 
@@ -70,7 +70,7 @@ slack-agent-bridge
 
 - [ ] **Step 3: Create LICENSE (MIT)**
 
-Standard MIT license with `Eduardo Serete` and year `2026`.
+Standard MIT license with `eserete` and year `2026`.
 
 - [ ] **Step 4: Run `go mod tidy`**
 

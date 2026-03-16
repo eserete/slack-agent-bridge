@@ -21,4 +21,4 @@ The agent's SYSTEM.md should define what each action does. The bridge handles sc
 
 Use a consistent label prefix: `com.<username>.<agent-short-name>.<action>`
 
-Example: `com.eduardoserete.cos.morning` for the morning daily planning action.
+Example: `com.example.myagent.morning` for the morning daily planning action.

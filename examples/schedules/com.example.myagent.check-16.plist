@@ -4,29 +4,29 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.eduardoserete.cos.checkin</string>
+    <string>com.example.myagent.check-16</string>
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/eduardoserete/agents/slack-agent-bridge/scripts/run.sh</string>
-        <string>checkin</string>
-        <string>always</string>
+        <string>/path/to/slack-agent-bridge/scripts/run.sh</string>
+        <string>state-check</string>
+        <string>conditional</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>14</integer>
+        <integer>16</integer>
         <key>Minute</key>
         <integer>0</integer>
     </dict>
     <key>EnvironmentVariables</key>
     <dict>
         <key>HOME</key>
-        <string>/Users/eduardoserete</string>
+        <string>/Users/youruser</string>
     </dict>
     <key>StandardOutPath</key>
-    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-checkin.log</string>
+    <string>/path/to/slack-agent-bridge/logs/launchd-check-16.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-checkin-err.log</string>
+    <string>/path/to/slack-agent-bridge/logs/launchd-check-16-err.log</string>
 </dict>
 </plist>
