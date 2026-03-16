@@ -110,7 +110,7 @@ This allows agents to access current state without reading files from disk.
 
 ## Running as a Service
 
-Use launchd to run the bridge as a macOS service:
+Use launchd to run the bridge listener as a macOS service:
 
 ```bash
 make install AGENT=myagent
@@ -119,6 +119,48 @@ make logs  # View logs
 ```
 
 The service will auto-restart if it crashes and start at system boot.
+
+## Scheduling Proactive Actions
+
+The bridge includes scripts for scheduling proactive agent actions (daily planning, check-ins, reviews, etc.) via macOS launchd.
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/run.sh` | Entry point for scheduled actions — runs `opencode run` with action-specific prompts |
+| `scripts/slack-send.sh` | Sends a message to Slack via Bot Token (used by agents during proactive runs) |
+| `scripts/install-schedules.sh` | Installs launchd plist files from a directory |
+
+### How it works
+
+1. launchd triggers `scripts/run.sh <action> <send-rule>` at scheduled times
+2. `run.sh` loads `.env`, skips weekends, and runs `opencode run` with a prompt telling the agent which action to execute
+3. The agent reads its SYSTEM.md, executes the action, and (if the send rule requires it) calls `scripts/slack-send.sh` to deliver the result to Slack
+
+### Send rules
+
+| Rule | Behavior |
+|------|----------|
+| `always` | Agent MUST call `slack-send.sh` with the result (default) |
+| `conditional` | Agent only sends if something needs attention |
+| `silent` | No Slack delivery — just run the action |
+
+### Setting up schedules
+
+1. Create plist files for your agent (see `examples/schedules/` for chief-of-staff examples)
+2. Install them:
+
+```bash
+bash scripts/install-schedules.sh /path/to/your/schedules
+```
+
+Or install the listener + schedules together:
+
+```bash
+make install AGENT=cos
+bash scripts/install-schedules.sh examples/schedules
+```
 
 ## Multiple Agents
 

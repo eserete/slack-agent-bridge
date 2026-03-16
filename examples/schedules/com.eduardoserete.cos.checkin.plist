@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.eduardoserete.cos.checkin</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/eduardoserete/agents/slack-agent-bridge/scripts/run.sh</string>
+        <string>checkin</string>
+        <string>always</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>14</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOME</key>
+        <string>/Users/eduardoserete</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-checkin.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-checkin-err.log</string>
+</dict>
+</plist>
