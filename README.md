@@ -10,6 +10,79 @@ A generic bridge connecting any opencode agent to any Slack bot via Socket Mode.
 4. **Build**: `make build`
 5. **Run**: `./slack-agent-bridge`
 
+## Bootstrap with OpenCode
+
+You can bootstrap your entire agent project using opencode itself with a free model — no API keys required.
+
+### 1. Create the agent working directory
+
+```bash
+mkdir -p ~/agents/my-agent/state
+cd ~/agents/my-agent
+```
+
+### 2. Run opencode with a free model to set up the project
+
+```bash
+opencode run --model opencode/nemotron-3-super-free \
+  "Set up this directory as an opencode agent project for a Slack bot called 'my-agent'. Do the following:
+   1. Create a SYSTEM.md with a basic helpful assistant system prompt
+   2. Ask me which model I want to use for reasoning (complex analysis, planning, deep thinking) and which model I want for simple tasks (quick answers, basic operations). Then create an opencode.jsonc configuring 'reasoner' with my reasoning model choice and 'coder' with my simple tasks model choice. If I don't have a preference, suggest free models from the opencode provider.
+   3. Create a .env file from this template: SLACK_APP_TOKEN=xapp-CHANGEME, SLACK_BOT_TOKEN=xoxb-CHANGEME, AGENT_NAME=my-agent, AGENT_DIR=$(pwd), ALLOWED_USER_ID=
+   4. Create a state/config.yaml with empty placeholder config
+   Tell me what was created and what I need to configure next."
+```
+
+This uses `opencode/nemotron-3-super-free` which is a free model built into opencode — no API key or subscription needed. The setup will ask you to choose models for two roles:
+
+- **Reasoner** — used for complex tasks (analysis, planning, debugging)
+- **Coder** — used for simple tasks (quick answers, file edits, basic operations)
+
+### 3. Configure Slack tokens
+
+Edit the `.env` file with your actual Slack tokens (from step 1 of Quick Start).
+
+### 4. Register the agent with opencode
+
+Create the agent definition file:
+
+```bash
+cp examples/agent.example.md ~/.config/opencode/agents/my-agent.md
+```
+
+Edit `~/.config/opencode/agents/my-agent.md` to customize the agent's behavior, or use opencode to do it:
+
+```bash
+opencode run --model opencode/nemotron-3-super-free \
+  "Read SYSTEM.md and create a matching opencode agent definition at ~/.config/opencode/agents/my-agent.md with the right tools enabled (read, write, edit, bash). Use the content from SYSTEM.md as the agent's system prompt."
+```
+
+### 5. Build and run
+
+```bash
+make build
+./slack-agent-bridge
+```
+
+### Available free models
+
+These models work without any API key or subscription:
+
+| Model | Best for |
+|-------|----------|
+| `opencode/nemotron-3-super-free` | General purpose, good quality |
+| `opencode/minimax-m2.5-free` | Fast responses |
+| `opencode/mimo-v2-flash-free` | Code-focused tasks |
+
+To use a different model in your `opencode.jsonc`:
+
+```jsonc
+{
+  "provider": { "opencode": {} },
+  "model": { "default": "opencode/nemotron-3-super-free" }
+}
+```
+
 ## Configuration
 
 | Variable | Required | Default | Description |
