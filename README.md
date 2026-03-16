@@ -24,19 +24,15 @@ cd ~/agents/my-agent
 ### 2. Run opencode with a free model to set up the project
 
 ```bash
-opencode run --model opencode/nemotron-3-super-free \
+opencode run --agent plan --model opencode/nemotron-3-super-free \
   "Set up this directory as an opencode agent project for a Slack bot called 'my-agent'. Do the following:
    1. Create a SYSTEM.md with a basic helpful assistant system prompt
-   2. Ask me which model I want to use for reasoning (complex analysis, planning, deep thinking) and which model I want for simple tasks (quick answers, basic operations). Then create an opencode.jsonc configuring 'reasoner' with my reasoning model choice and 'coder' with my simple tasks model choice. If I don't have a preference, suggest free models from the opencode provider.
-   3. Create a .env file from this template: SLACK_APP_TOKEN=xapp-CHANGEME, SLACK_BOT_TOKEN=xoxb-CHANGEME, AGENT_NAME=my-agent, AGENT_DIR=$(pwd), ALLOWED_USER_ID=
-   4. Create a state/config.yaml with empty placeholder config
+   2. Create a .env file from this template: SLACK_APP_TOKEN=xapp-CHANGEME, SLACK_BOT_TOKEN=xoxb-CHANGEME, AGENT_NAME=my-agent, AGENT_DIR=$(pwd), ALLOWED_USER_ID=
+   3. Create a state/config.yaml with empty placeholder config
    Tell me what was created and what I need to configure next."
 ```
 
-This uses `opencode/nemotron-3-super-free` which is a free model built into opencode — no API key or subscription needed. The setup will ask you to choose models for two roles:
-
-- **Reasoner** — used for complex tasks (analysis, planning, debugging)
-- **Coder** — used for simple tasks (quick answers, file edits, basic operations)
+This uses `opencode/nemotron-3-super-free` — a free model built into opencode, no API key or subscription needed.
 
 ### 3. Configure Slack tokens
 
