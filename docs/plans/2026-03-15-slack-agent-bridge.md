@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Extract the existing chief-of-staff Slack listener into a generic, configurable, open-source Go bridge connecting any opencode agent to any Slack bot.
+**Goal:** Extract an existing Slack listener into a generic, configurable, open-source Go bridge connecting any opencode agent to any Slack bot.
 
 **Architecture:** One Go binary per Slack bot. Starts `opencode serve` as child process, connects to Slack via Socket Mode, bridges messages with real-time SSE streaming. All agent-specific config via env vars.
 
@@ -1274,7 +1274,7 @@ git commit -m "feat: add RunAgentStreaming with SSE pre-connect and reconnection
 **Files:**
 - Create: `handler.go`
 
-**Source:** `handler.go` from chief-of-staff/listener (268 lines)
+**Source:** `handler.go` from original listener (268 lines)
 
 - [ ] **Step 1: Write handler.go**
 
@@ -1629,7 +1629,7 @@ git commit -m "feat: add main.go entrypoint with config loading and Slack Socket
 
 ```makefile
 BINARY := slack-agent-bridge
-AGENT ?= $(error AGENT is required for install/uninstall, e.g. make install AGENT=carolina)
+AGENT ?= $(error AGENT is required for install/uninstall, e.g. make install AGENT=myagent)
 PLIST_LABEL := com.slack-agent-bridge.$(AGENT)
 PLIST_DIR := $(HOME)/Library/LaunchAgents
 PLIST_PATH := $(PLIST_DIR)/$(PLIST_LABEL).plist

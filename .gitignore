@@ -1,3 +1,4 @@
 slack-agent-bridge
 .env
 *.log
+.DS_Store

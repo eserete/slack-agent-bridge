@@ -1,5 +1,5 @@
 BINARY := slack-agent-bridge
-AGENT ?= $(error AGENT is required for install/uninstall, e.g. make install AGENT=carolina)
+AGENT ?= $(error AGENT is required for install/uninstall, e.g. make install AGENT=myagent)
 PLIST_LABEL := com.slack-agent-bridge.$(AGENT)
 PLIST_DIR := $(HOME)/Library/LaunchAgents
 PLIST_PATH := $(PLIST_DIR)/$(PLIST_LABEL).plist

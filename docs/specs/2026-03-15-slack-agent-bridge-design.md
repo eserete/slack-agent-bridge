@@ -6,7 +6,7 @@
 
 ## Problem
 
-We have a working Slack-to-opencode bridge built specifically for the "Carolina" (chief-of-staff) agent. The code is tightly coupled to that agent — hardcoded agent name, directory paths, state file names, port, and user ID. We want to extract this into a generic, configurable bridge that anyone can use to connect any opencode agent to any Slack bot.
+We have a working Slack-to-opencode bridge built specifically for a single agent. The code is tightly coupled to that agent — hardcoded agent name, directory paths, state file names, port, and user ID. We want to extract this into a generic, configurable bridge that anyone can use to connect any opencode agent to any Slack bot.
 
 ## Solution
 
@@ -40,7 +40,7 @@ All via environment variables (loaded from `.env` if present).
 |---|---|---|
 | `SLACK_APP_TOKEN` | Slack app-level token (xapp-) | `xapp-1-...` |
 | `SLACK_BOT_TOKEN` | Slack bot token (xoxb-) | `xoxb-...` |
-| `AGENT_NAME` | opencode agent name (matches agent file name) | `chief-of-staff` |
+| `AGENT_NAME` | opencode agent name (matches agent file name) | `my-agent` |
 | `AGENT_DIR` | Working directory for opencode serve | `/Users/you/agents/my-agent` |
 
 ### Optional
@@ -233,7 +233,7 @@ uninstall:      # launchctl unload, remove plist
 logs:           # tail -f logs
 ```
 
-`make install` requires `AGENT` parameter: `make install AGENT=carolina`
+`make install` requires `AGENT` parameter: `make install AGENT=myagent`
 Generates plist label: `com.slack-agent-bridge.<AGENT>`
 
 ## Examples

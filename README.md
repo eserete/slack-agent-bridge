@@ -148,7 +148,7 @@ The bridge includes scripts for scheduling proactive agent actions (daily planni
 
 ### Setting up schedules
 
-1. Create plist files for your agent (see `examples/schedules/` for chief-of-staff examples)
+1. Create plist files for your agent (see `examples/schedules/` for examples)
 2. Install them:
 
 ```bash
