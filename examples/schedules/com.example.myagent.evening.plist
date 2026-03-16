@@ -4,11 +4,11 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.eduardoserete.cos.evening</string>
+    <string>com.example.myagent.evening</string>
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/eduardoserete/agents/slack-agent-bridge/scripts/run.sh</string>
+        <string>/path/to/slack-agent-bridge/scripts/run.sh</string>
         <string>evening-review</string>
         <string>always</string>
     </array>
@@ -22,11 +22,11 @@
     <key>EnvironmentVariables</key>
     <dict>
         <key>HOME</key>
-        <string>/Users/eduardoserete</string>
+        <string>/Users/youruser</string>
     </dict>
     <key>StandardOutPath</key>
-    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-evening.log</string>
+    <string>/path/to/slack-agent-bridge/logs/launchd-evening.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/eduardoserete/agents/chief-of-staff/logs/launchd-evening-err.log</string>
+    <string>/path/to/slack-agent-bridge/logs/launchd-evening-err.log</string>
 </dict>
 </plist>
